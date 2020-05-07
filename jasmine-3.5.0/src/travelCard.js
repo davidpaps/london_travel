@@ -25,7 +25,7 @@ class TravelCard {
   touchIn = (station) => {
     if (this._minFare()) {
       this.isInJourney = true;
-      this.journey.startStation = station;
+      this.journey._startJourney(station);
       return `Journey Started at ${station}`;
     } else {
       throw new Error(
@@ -39,7 +39,7 @@ class TravelCard {
   touchOut = (station) => {
     this._deductFare();
     this.isInJourney = false;
-    this.journey.endStation = station;
+    this.journey._endJourney(station);
     return `Journey Ended at ${station}, £${this.fare} Fare Deducted, Balance = £${this.balance}`;
   };
 
