@@ -37,6 +37,7 @@ class TravelCard {
   touchOut = (station) => {
     this._deductFare();
     this.isInJourney = false;
+    this.startStation = "";
     return `Journey Ended at ${station}, £${this.fare} Fare Deducted, Balance = £${this.balance}`;
   };
 

@@ -81,5 +81,12 @@ describe("TravelCard", function () {
         "Journey Ended at Hampstead, £3 Fare Deducted, Balance = £7"
       );
     });
+
+    it("resets the station touched in at", function () {
+      travelCard.topUp(10);
+      travelCard.touchIn("Woodford");
+      travelCard.touchOut("Hampstead");
+      expect(travelCard.startStation).toBe("");
+    });
   });
 });
