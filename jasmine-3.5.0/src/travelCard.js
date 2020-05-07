@@ -16,4 +16,9 @@ class TravelCard {
       );
     }
   };
+
+  deductFare = (money) => {
+    this.balance -= money;
+    return `£${money} Fare Deducted, Balance = £${this.balance}`;
+  };
 }

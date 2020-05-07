@@ -21,11 +21,9 @@ describe("TravelCard", function () {
       expect(travelCard.balance).toEqual(20);
     });
 
-    it("provides a message displaying the amount added and the new total balance", function () {
+    it("provides a message displaying the amount added and the new balance", function () {
       travelCard.topUp(20);
-      expect(travelCard.topUp(20)).toEqual(
-        "£20 Sucessfully added, Balance = £40"
-      );
+      expect(travelCard.topUp(20)).toBe("£20 Sucessfully added, Balance = £40");
     });
 
     it("throws an error if max balance is exceeded during topUp", function () {
@@ -35,6 +33,19 @@ describe("TravelCard", function () {
       }).toThrowError(
         "Can Not Exceed Maximum balance of £90, Max Top Up Avaliable = £10"
       );
+    });
+  });
+
+  describe("deductFare", function () {
+    it("deducts the standard fare", function () {
+      travelCard.topUp(10);
+      travelCard.deductFare(3);
+      expect(travelCard.balance).toEqual(7);
+    });
+
+    it("provides a message displaying the fare deduction and the new balance", function () {
+      travelCard.topUp(10);
+      expect(travelCard.deductFare(3)).toBe("£3 Fare Deducted, Balance = £7");
     });
   });
 });
