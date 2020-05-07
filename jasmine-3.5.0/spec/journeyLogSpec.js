@@ -33,6 +33,7 @@ describe("JourneyLog", function () {
       journeyLog._startLog("Woodford");
       journeyLog._endLog("Hampstead");
       journeyLog._resetCurrentJourney();
+      expect(journeyLog.currentJourney.startStation).toBe("");
       expect(journeyLog.currentJourney.endStation).toBe("");
     });
   });

@@ -15,7 +15,11 @@ class JourneyLog {
   };
 
   _resetCurrentJourney = () => {
-    this.history.push(this.currentJourney);
+    this.history.push(this._immuteJourney(this.currentJourney));
     this.currentJourney = new Journey();
+  };
+
+  _immuteJourney = (journey) => {
+    return Object.freeze(journey);
   };
 }
