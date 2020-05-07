@@ -26,10 +26,7 @@ class TravelCard {
 
   touchIn = (station) => {
     if (this.isInJourney) {
-      this._deductFare(this.penalty);
-      this.journey._resetCurrentJourney();
-      this.isInJourney = false;
-      return `Previous Journey Incomplete, £${this.penalty} charged, current balance = £${this.balance}`;
+      this._incomplete();
     }
 
     if (this._minFare()) {
@@ -46,11 +43,11 @@ class TravelCard {
   };
 
   touchOut = (station) => {
-    this._deductFare(this.fare);
-    this.isInJourney = false;
-    this.journey._endLog(station);
-    this.journey._resetCurrentJourney();
-    return `Journey Ended at ${station}, £${this.fare} Fare Deducted, Balance = £${this.balance}`;
+    let charge = 0;
+    !this.isInJourney ? (charge = this.penalty) : (charge = this.fare);
+    this._deductFare(charge);
+    this._complete(station);
+    return `Journey Ended at ${station}, £${charge} Fare Deducted, Balance = £${this.balance}`;
   };
 
   _notExceedMaxBalance = (money) => {
@@ -67,5 +64,18 @@ class TravelCard {
 
   _deductFare = (charge) => {
     this.balance -= charge;
+  };
+
+  _incomplete = () => {
+    this._deductFare(this.penalty);
+    this.journey._resetCurrentJourney();
+    this.isInJourney = false;
+    return `Previous Journey Incomplete, £${this.penalty} charged, current balance = £${this.balance}`;
+  };
+
+  _complete = (station) => {
+    this.isInJourney = false;
+    this.journey._endLog(station);
+    this.journey._resetCurrentJourney();
   };
 }
