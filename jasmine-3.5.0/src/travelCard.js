@@ -5,8 +5,8 @@ class TravelCard {
   }
 
   topUp = (money) => {
-    if (this.balance + money <= this.maxBalance) {
-      this.balance += money;
+    if (this._exceedMaxBalance(money)) {
+      this._add(money);
       return `£${money} Sucessfully added, Balance = £${this.balance}`;
     } else {
       throw new Error(
@@ -18,7 +18,19 @@ class TravelCard {
   };
 
   deductFare = (money) => {
-    this.balance -= money;
+    this._minus(money);
     return `£${money} Fare Deducted, Balance = £${this.balance}`;
+  };
+
+  _exceedMaxBalance = (money) => {
+    return this.balance + money <= this.maxBalance;
+  };
+
+  _add = (money) => {
+    this.balance += money;
+  };
+
+  _minus = (money) => {
+    this.balance -= money;
   };
 }
