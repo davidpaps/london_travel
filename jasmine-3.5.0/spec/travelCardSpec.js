@@ -48,4 +48,16 @@ describe("TravelCard", function () {
       expect(travelCard.deductFare(3)).toBe("£3 Fare Deducted, Balance = £7");
     });
   });
+
+  describe("touchIn", function () {
+    it("changes inJourney to false", function () {
+      travelCard.touchIn("Woodford");
+      expect(travelCard.isInJourney).toBe(true);
+    });
+    it("provides a message displaying the fare deduction and the new balance", function () {
+      expect(travelCard.touchIn("Woodford")).toBe(
+        "Journey Started at Woodford"
+      );
+    });
+  });
 });

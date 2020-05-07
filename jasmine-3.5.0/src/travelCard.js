@@ -2,6 +2,7 @@ class TravelCard {
   constructor() {
     this.balance = 0;
     this.maxBalance = 90;
+    this.isInJourney = false;
   }
 
   topUp = (money) => {
@@ -20,6 +21,11 @@ class TravelCard {
   deductFare = (money) => {
     this._minus(money);
     return `£${money} Fare Deducted, Balance = £${this.balance}`;
+  };
+
+  touchIn = (station) => {
+    this.isInJourney = true;
+    return `Journey Started at ${station}`;
   };
 
   _exceedMaxBalance = (money) => {
