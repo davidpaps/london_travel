@@ -20,7 +20,7 @@ class TravelCard {
   };
 
   touchIn = (station) => {
-    if (this.balance >= this.fare) {
+    if (this._minFare()) {
       this.isInJourney = true;
       return `Journey Started at ${station}`;
     } else {
@@ -40,6 +40,10 @@ class TravelCard {
 
   _notExceedMaxBalance = (money) => {
     return this.balance + money <= this.maxBalance;
+  };
+
+  _minFare = () => {
+    return this.balance >= this.fare;
   };
 
   _addCredit = (money) => {
