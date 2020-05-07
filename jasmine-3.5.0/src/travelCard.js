@@ -4,6 +4,7 @@ class TravelCard {
     this.maxBalance = 90;
     this.fare = 3;
     this.isInJourney = false;
+    this.startStation = "";
   }
 
   topUp = (money) => {
@@ -22,6 +23,7 @@ class TravelCard {
   touchIn = (station) => {
     if (this._minFare()) {
       this.isInJourney = true;
+      this.startStation = station;
       return `Journey Started at ${station}`;
     } else {
       throw new Error(
