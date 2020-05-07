@@ -1,7 +1,7 @@
 "use strict";
 
 class TravelCard {
-  constructor(journey = new Journey()) {
+  constructor(journey = new JourneyLog()) {
     this.balance = 0;
     this.maxBalance = 90;
     this.fare = 3;
@@ -25,7 +25,7 @@ class TravelCard {
   touchIn = (station) => {
     if (this._minFare()) {
       this.isInJourney = true;
-      this.journey._startJourney(station);
+      this.journey._startLog(station);
       return `Journey Started at ${station}`;
     } else {
       throw new Error(
@@ -39,7 +39,7 @@ class TravelCard {
   touchOut = (station) => {
     this._deductFare();
     this.isInJourney = false;
-    this.journey._endJourney(station);
+    this.journey._endLog(station);
     return `Journey Ended at ${station}, £${this.fare} Fare Deducted, Balance = £${this.balance}`;
   };
 
