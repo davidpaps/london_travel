@@ -1,5 +1,3 @@
-"use strict";
-
 describe("JourneyLog", function () {
   let journeyLog;
 
@@ -35,6 +33,16 @@ describe("JourneyLog", function () {
       journeyLog._resetCurrentJourney();
       expect(journeyLog.currentJourney.startStation).toBe("");
       expect(journeyLog.currentJourney.endStation).toBe("");
+    });
+  });
+
+  describe("immuteJourney", function () {
+    it("journey log cannot be changed", function () {
+      journeyLog._startLog("Woodford");
+      journeyLog._endLog("Hampstead");
+      journeyLog._resetCurrentJourney();
+      journeyLog.history[0].startStation = "Waterloo";
+      expect(journeyLog.history[0].startStation).toBe("Woodford");
     });
   });
 });
