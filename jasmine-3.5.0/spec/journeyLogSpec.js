@@ -4,6 +4,6 @@ describe("JourneyLog", function () {
   let journeyLog;
 
   beforeEach(function () {
-    journeyLog = new journeyLog();
+    journeyLog = new JourneyLog();
   });
 });
