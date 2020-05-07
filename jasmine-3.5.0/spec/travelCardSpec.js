@@ -48,6 +48,19 @@ describe("TravelCard", function () {
         "Insufficent Funds, Top up a Minimum of £1 to Start a Journey"
       );
     });
+
+    it("charges penalty fare if touch in when isInJourney is true", function () {
+      travelCard.touchIn("Woodford");
+      travelCard.touchIn("Hampstead");
+      expect(travelCard.balance).toEqual(15);
+    });
+
+    it("provides a message displaying the penalty fare deduction and the new balance", function () {
+      travelCard.touchIn("Woodford");
+      expect(travelCard.touchIn("Hampstead")).toBe(
+        "Previous Journey Incomplete, £5 charged, current balance = £15"
+      );
+    });
   });
 
   describe("touchOut", function () {

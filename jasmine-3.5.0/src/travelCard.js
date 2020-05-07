@@ -5,6 +5,7 @@ class TravelCard {
     this.balance = 0;
     this.maxBalance = 90;
     this.fare = 3;
+    this.penalty = 5;
     this.isInJourney = false;
     this.journey = journey;
     this.history = journey.history;
@@ -24,6 +25,13 @@ class TravelCard {
   };
 
   touchIn = (station) => {
+    if (this.isInJourney) {
+      this._deductFare(this.penalty);
+      this.journey._resetCurrentJourney();
+      this.isInJourney = false;
+      return `Previous Journey Incomplete, £${this.penalty} charged, current balance = £${this.balance}`;
+    }
+
     if (this._minFare()) {
       this.isInJourney = true;
       this.journey._startLog(station);
@@ -38,7 +46,7 @@ class TravelCard {
   };
 
   touchOut = (station) => {
-    this._deductFare();
+    this._deductFare(this.fare);
     this.isInJourney = false;
     this.journey._endLog(station);
     this.journey._resetCurrentJourney();
@@ -57,7 +65,7 @@ class TravelCard {
     this.balance += money;
   };
 
-  _deductFare = () => {
-    this.balance -= this.fare;
+  _deductFare = (charge) => {
+    this.balance -= charge;
   };
 }
