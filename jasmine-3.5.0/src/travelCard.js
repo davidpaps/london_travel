@@ -8,7 +8,6 @@ class TravelCard {
     this.penalty = 5;
     this.isInJourney = false;
     this.journey = journey;
-    this.history = journey.history;
   }
 
   topUp = (money) => {

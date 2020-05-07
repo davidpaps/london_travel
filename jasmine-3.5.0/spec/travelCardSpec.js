@@ -54,13 +54,6 @@ describe("TravelCard", function () {
       travelCard.touchIn("Hampstead");
       expect(travelCard.balance).toEqual(15);
     });
-
-    // it("provides a message displaying the penalty fare deduction and the new balance", function () {
-    //   travelCard.touchIn("Woodford");
-    //   expect(travelCard.touchIn("Hampstead")).toBe(
-    //     "Previous Journey Incomplete, £5 charged, current balance = £15"
-    //   );
-    // });
   });
 
   describe("touchOut", function () {
