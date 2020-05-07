@@ -31,7 +31,7 @@ class TravelCard {
     if (this._minFare()) {
       this.isInJourney = true;
       this.journey._startLog(station);
-      return `Journey Started at ${station}`;
+      return `Journey Started at ${station.name} (Zone ${station.zone})`;
     } else {
       throw new Error(
         `Insufficent Funds, Top up a Minimum of £${
@@ -46,7 +46,7 @@ class TravelCard {
     !this.isInJourney ? (charge = this.penalty) : (charge = this.fare);
     this._deductFare(charge);
     this._complete(station);
-    return `Journey Ended at ${station}, £${charge} Fare Deducted, Balance = £${this.balance}`;
+    return `Journey Ended at ${station.name}, £${charge} Fare Deducted, Balance = £${this.balance}`;
   };
 
   _notExceedMaxBalance = (money) => {

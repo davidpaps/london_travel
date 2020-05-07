@@ -2,10 +2,22 @@
 
 describe("TravelCard", function () {
   let travelCard;
+  let station;
+  let stationTwo;
 
   beforeEach(function () {
     travelCard = new TravelCard();
     travelCard.topUp(20);
+
+    station = {
+      name: "Woodford",
+      zone: 1,
+    };
+
+    stationTwo = {
+      name: "Hampstead",
+      zone: 1,
+    };
   });
 
   describe("topUp", function () {
@@ -30,50 +42,50 @@ describe("TravelCard", function () {
 
   describe("touchIn", function () {
     it("changes inJourney to true", function () {
-      travelCard.touchIn("Woodford");
+      travelCard.touchIn(station);
       expect(travelCard.isInJourney).toBe(true);
     });
 
     it("provides a message displaying the fare deduction and the new balance", function () {
-      expect(travelCard.touchIn("Woodford")).toBe(
-        "Journey Started at Woodford"
+      expect(travelCard.touchIn(station)).toBe(
+        "Journey Started at Woodford (Zone 1)"
       );
     });
 
     it("throws an error if not enough credit for a journey", function () {
       travelCard.topUp(-18);
       expect(function () {
-        travelCard.touchIn("Woodford");
+        travelCard.touchIn(station);
       }).toThrowError(
         "Insufficent Funds, Top up a Minimum of £1 to Start a Journey"
       );
     });
 
     it("charges penalty fare if touch in when isInJourney is true", function () {
-      travelCard.touchIn("Woodford");
-      travelCard.touchIn("Hampstead");
+      travelCard.touchIn(station);
+      travelCard.touchIn(stationTwo);
       expect(travelCard.balance).toEqual(15);
     });
   });
 
   describe("touchOut", function () {
     it("changes inJourney to false", function () {
-      travelCard.touchIn("Woodford");
-      travelCard.touchOut("Hampstead");
+      travelCard.touchIn(station);
+      travelCard.touchOut(stationTwo);
       expect(travelCard.isInJourney).toBe(false);
     });
 
     it("provides a message displaying the fare deduction and the new balance", function () {
-      travelCard.touchIn("Woodford");
-      expect(travelCard.touchOut("Hampstead")).toBe(
+      travelCard.touchIn(station);
+      expect(travelCard.touchOut(stationTwo)).toBe(
         "Journey Ended at Hampstead, £3 Fare Deducted, Balance = £17"
       );
     });
 
     it("charges penalty fare if touch out when isInJourney is false", function () {
-      travelCard.touchIn("Woodford");
-      travelCard.touchOut("Hampstead");
-      travelCard.touchOut("Hampstead");
+      travelCard.touchIn(station);
+      travelCard.touchOut(stationTwo);
+      travelCard.touchOut(stationTwo);
       expect(travelCard.balance).toEqual(12);
     });
   });
