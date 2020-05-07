@@ -1,5 +1,7 @@
 "use strict";
 
 class JourneyLog {
-  constructor() {}
+  constructor() {
+    this.history = [];
+  }
 }

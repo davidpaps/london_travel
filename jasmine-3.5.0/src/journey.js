@@ -1,5 +1,8 @@
 "use strict";
 
 class Journey {
-  constructor() {}
+  constructor() {
+    this.startStation = "";
+    this.endStation = "";
+  }
 }

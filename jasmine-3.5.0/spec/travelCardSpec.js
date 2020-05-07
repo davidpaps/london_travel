@@ -48,11 +48,6 @@ describe("TravelCard", function () {
         "Insufficent Funds, Top up a Minimum of £1 to Start a Journey"
       );
     });
-
-    it("stores the station touched in at", function () {
-      travelCard.touchIn("Woodford");
-      expect(travelCard.startStation).toBe("Woodford");
-    });
   });
 
   describe("touchOut", function () {
@@ -67,12 +62,6 @@ describe("TravelCard", function () {
       expect(travelCard.touchOut("Hampstead")).toBe(
         "Journey Ended at Hampstead, £3 Fare Deducted, Balance = £17"
       );
-    });
-
-    it("resets the station touched in at", function () {
-      travelCard.touchIn("Woodford");
-      travelCard.touchOut("Hampstead");
-      expect(travelCard.startStation).toBe("");
     });
   });
 });

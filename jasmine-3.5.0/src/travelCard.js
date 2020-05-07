@@ -1,12 +1,12 @@
 "use strict";
 
 class TravelCard {
-  constructor() {
+  constructor(journey = new Journey()) {
     this.balance = 0;
     this.maxBalance = 90;
     this.fare = 3;
     this.isInJourney = false;
-    this.startStation = "";
+    this.journey = journey;
   }
 
   topUp = (money) => {
@@ -25,7 +25,7 @@ class TravelCard {
   touchIn = (station) => {
     if (this._minFare()) {
       this.isInJourney = true;
-      this.startStation = station;
+      this.journey.startStation = station;
       return `Journey Started at ${station}`;
     } else {
       throw new Error(
@@ -39,7 +39,7 @@ class TravelCard {
   touchOut = (station) => {
     this._deductFare();
     this.isInJourney = false;
-    this.startStation = "";
+    this.journey.endStation = station;
     return `Journey Ended at ${station}, £${this.fare} Fare Deducted, Balance = £${this.balance}`;
   };
 
