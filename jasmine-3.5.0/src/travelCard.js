@@ -1,3 +1,5 @@
+"use strict";
+
 class TravelCard {
   constructor() {
     this.balance = 0;
