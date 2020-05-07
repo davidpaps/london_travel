@@ -13,4 +13,9 @@ class JourneyLog {
   _endLog = (station) => {
     this.currentJourney._endJourney(station);
   };
+
+  _resetCurrentJourney = () => {
+    this.history.push(this.currentJourney);
+    this.currentJourney = new Journey();
+  };
 }

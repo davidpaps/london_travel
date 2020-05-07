@@ -2,11 +2,9 @@
 
 describe("JourneyLog", function () {
   let journeyLog;
-  let journey;
 
   beforeEach(function () {
     journeyLog = new JourneyLog();
-    journey = jasmine.createSpyObj("journey", ["_startJourney", "_endJourney"]);
   });
 
   describe("startLog", function () {
@@ -20,6 +18,22 @@ describe("JourneyLog", function () {
     it("logs the end station", function () {
       journeyLog._endLog("Hampstead");
       expect(journeyLog.currentJourney.endStation).toBe("Hampstead");
+    });
+  });
+
+  describe("reset", function () {
+    it("resets the current journey once completed", function () {
+      journeyLog._startLog("Woodford");
+      journeyLog._endLog("Hampstead");
+      journeyLog._resetCurrentJourney();
+      expect(journeyLog.history.length).toEqual(1);
+    });
+
+    it("resets the current journey once completed", function () {
+      journeyLog._startLog("Woodford");
+      journeyLog._endLog("Hampstead");
+      journeyLog._resetCurrentJourney();
+      expect(journeyLog.currentJourney.endStation).toBe("");
     });
   });
 });

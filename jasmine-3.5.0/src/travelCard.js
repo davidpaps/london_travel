@@ -7,6 +7,7 @@ class TravelCard {
     this.fare = 3;
     this.isInJourney = false;
     this.journey = journey;
+    this.history = journey.history;
   }
 
   topUp = (money) => {
@@ -40,6 +41,7 @@ class TravelCard {
     this._deductFare();
     this.isInJourney = false;
     this.journey._endLog(station);
+    this.journey._resetCurrentJourney();
     return `Journey Ended at ${station}, £${this.fare} Fare Deducted, Balance = £${this.balance}`;
   };
 
