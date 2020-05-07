@@ -36,27 +36,43 @@ describe("TravelCard", function () {
     });
   });
 
-  describe("deductFare", function () {
-    it("deducts the standard fare", function () {
-      travelCard.topUp(10);
-      travelCard.deductFare(3);
-      expect(travelCard.balance).toEqual(7);
-    });
-
-    it("provides a message displaying the fare deduction and the new balance", function () {
-      travelCard.topUp(10);
-      expect(travelCard.deductFare(3)).toBe("£3 Fare Deducted, Balance = £7");
-    });
-  });
-
   describe("touchIn", function () {
-    it("changes inJourney to false", function () {
+    it("changes inJourney to true", function () {
+      travelCard.topUp(10);
       travelCard.touchIn("Woodford");
       expect(travelCard.isInJourney).toBe(true);
     });
+
     it("provides a message displaying the fare deduction and the new balance", function () {
+      travelCard.topUp(10);
       expect(travelCard.touchIn("Woodford")).toBe(
         "Journey Started at Woodford"
+      );
+    });
+
+    it("throws an error if not enough credit for a journey", function () {
+      travelCard.topUp(2);
+      expect(function () {
+        travelCard.touchIn("Woodford");
+      }).toThrowError(
+        "Insufficent Funds, Top up a Minimum of £1 to Start a Journey"
+      );
+    });
+  });
+
+  describe("touchOut", function () {
+    it("changes inJourney to false", function () {
+      travelCard.topUp(10);
+      travelCard.touchIn("Woodford");
+      travelCard.touchOut("Hampstead");
+      expect(travelCard.isInJourney).toBe(false);
+    });
+
+    it("provides a message displaying the fare deduction and the new balance", function () {
+      travelCard.topUp(10);
+      travelCard.touchIn("Woodford");
+      expect(travelCard.touchOut("Hampstead")).toBe(
+        "Journey Ended at Hampstead, £3 Fare Deducted, Balance = £7"
       );
     });
   });

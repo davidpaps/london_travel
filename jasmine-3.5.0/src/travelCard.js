@@ -2,12 +2,13 @@ class TravelCard {
   constructor() {
     this.balance = 0;
     this.maxBalance = 90;
+    this.fare = 3;
     this.isInJourney = false;
   }
 
   topUp = (money) => {
-    if (this._exceedMaxBalance(money)) {
-      this._add(money);
+    if (this._notExceedMaxBalance(money)) {
+      this._addCredit(money);
       return `£${money} Sucessfully added, Balance = £${this.balance}`;
     } else {
       throw new Error(
@@ -18,25 +19,34 @@ class TravelCard {
     }
   };
 
-  deductFare = (money) => {
-    this._minus(money);
-    return `£${money} Fare Deducted, Balance = £${this.balance}`;
-  };
-
   touchIn = (station) => {
-    this.isInJourney = true;
-    return `Journey Started at ${station}`;
+    if (this.balance >= this.fare) {
+      this.isInJourney = true;
+      return `Journey Started at ${station}`;
+    } else {
+      throw new Error(
+        `Insufficent Funds, Top up a Minimum of £${
+          this.fare - this.balance
+        } to Start a Journey`
+      );
+    }
   };
 
-  _exceedMaxBalance = (money) => {
+  touchOut = (station) => {
+    this._deductFare();
+    this.isInJourney = false;
+    return `Journey Ended at ${station}, £${this.fare} Fare Deducted, Balance = £${this.balance}`;
+  };
+
+  _notExceedMaxBalance = (money) => {
     return this.balance + money <= this.maxBalance;
   };
 
-  _add = (money) => {
+  _addCredit = (money) => {
     this.balance += money;
   };
 
-  _minus = (money) => {
-    this.balance -= money;
+  _deductFare = () => {
+    this.balance -= this.fare;
   };
 }
