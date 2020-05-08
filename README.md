@@ -67,18 +67,27 @@ Right click on the `SpecRunner.html` file and select `Copy Path`. Paste this int
 Right click, and open the chrome Developer Tools by selecting `Inspect`. Clcik the `Console` tab at the top. You can then type in the following:
 
 ```
-*
+let travelCard = new TravelCard()
+station = new Station("Woodford", 1);
+stationTwo = new Station("Hampstead", 3);
+stationThree = new Station("Warren Street", 5);
 ```
 
 This will instantiate the objects needed for the program. You can then type in the following to action the objects accordingly:
 
 ```
-*
+travelCard.topUp(20)
+travelCard.touchIn(station)
+travelCard.touchOut(stationThree)
+travelCard.balance
+travelCard.journey
 ```
+
+You can then explore the saved journey history, spending, and see if a journey is incomplete or not. Useful messages will be displayed when a user 'touches in' and 'touching out', giving station and charge information. Errors will also be thrown if credit is added above the max cap or when insufficent funds are on the card when starting a journey. Charges are calculated between the zones of the station, with a max charge of £7. If a journey is not completed, the max charge will be used.
 
 ## Testing
 
-To run the test suite (Jasmine), follow the instructions above to open the SpecRunner. The Jasmine test suite will appear with \* passing tests and 100% coverage.
+To run the test suite (Jasmine), follow the instructions above to open the SpecRunner. The Jasmine test suite will appear with 29 passing tests and 100% coverage.
 
 ---
 
