@@ -46,13 +46,13 @@ class TravelCard {
     let charge = 0;
     !this.isInJourney
       ? (charge = this.penalty)
-      : (charge = this.calculateFare());
+      : (charge = this._calculateFare());
     this._deductFare(charge);
     this._complete();
     return `Journey Ended at ${station.name}, £${charge} Fare Deducted, Balance = £${this.balance}`;
   };
 
-  calculateFare = () => {
+  _calculateFare = () => {
     let fare =
       this.journey.currentJourney.startStation.zone -
       this.journey.currentJourney.endStation.zone;

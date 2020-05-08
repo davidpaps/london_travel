@@ -116,5 +116,29 @@ describe("TravelCard", function () {
       travelCard.touchOut(stationOne);
       expect(travelCard.balance).toEqual(17);
     });
+
+    it("charges £4 for a journey accross 1 zone number", function () {
+      travelCard.touchIn(stationOne);
+      travelCard.touchOut(stationTwo);
+      expect(travelCard.balance).toEqual(16);
+    });
+
+    it("charges £5 for a journey across 2 zone numbers", function () {
+      travelCard.touchIn(stationOne);
+      travelCard.touchOut(stationThree);
+      expect(travelCard.balance).toEqual(15);
+    });
+
+    it("charges £6 for a journey accross 3 zones", function () {
+      travelCard.touchIn(stationOne);
+      travelCard.touchOut(stationFour);
+      expect(travelCard.balance).toEqual(14);
+    });
+
+    it("charges £7 for a journey accross 4+ zones", function () {
+      travelCard.touchIn(stationOne);
+      travelCard.touchOut(stationFive);
+      expect(travelCard.balance).toEqual(13);
+    });
   });
 });
