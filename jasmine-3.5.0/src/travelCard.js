@@ -4,8 +4,8 @@ class TravelCard {
   constructor(journey = new JourneyLog()) {
     this.balance = 0;
     this.maxBalance = 90;
-    this.fare = 3;
-    this.penalty = 5;
+    this.minFare = 3;
+    this.penalty = 7;
     this.isInJourney = false;
     this.journey = journey;
   }
@@ -28,33 +28,43 @@ class TravelCard {
       this._incomplete();
     }
 
-    if (this._minFare()) {
+    if (this._minBalance()) {
       this.isInJourney = true;
       this.journey._startLog(station);
       return `Journey Started at ${station.name} (Zone ${station.zone})`;
     } else {
       throw new Error(
         `Insufficent Funds, Top up a Minimum of £${
-          this.fare - this.balance
+          this.minFare - this.balance
         } to Start a Journey`
       );
     }
   };
 
   touchOut = (station) => {
+    this.journey._endLog(station);
     let charge = 0;
-    !this.isInJourney ? (charge = this.penalty) : (charge = this.fare);
+    !this.isInJourney
+      ? (charge = this.penalty)
+      : (charge = this.calculateFare());
     this._deductFare(charge);
-    this._complete(station);
+    this._complete();
     return `Journey Ended at ${station.name}, £${charge} Fare Deducted, Balance = £${this.balance}`;
+  };
+
+  calculateFare = () => {
+    let fare =
+      this.journey.currentJourney.startStation.zone -
+      this.journey.currentJourney.endStation.zone;
+    return this.minFare + Math.abs(fare);
   };
 
   _notExceedMaxBalance = (money) => {
     return this.balance + money <= this.maxBalance;
   };
 
-  _minFare = () => {
-    return this.balance >= this.fare;
+  _minBalance = () => {
+    return this.balance >= this.minFare;
   };
 
   _addCredit = (money) => {
@@ -72,9 +82,8 @@ class TravelCard {
     return `Previous Journey Incomplete, £${this.penalty} charged, current balance = £${this.balance}`;
   };
 
-  _complete = (station) => {
+  _complete = () => {
     this.isInJourney = false;
-    this.journey._endLog(station);
     this.journey._resetCurrentJourney();
   };
 }

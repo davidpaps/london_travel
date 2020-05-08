@@ -3,7 +3,11 @@
 describe("TravelCard", function () {
   let travelCard;
   let station;
+  let stationOne;
   let stationTwo;
+  let stationThree;
+  let stationFour;
+  let stationFive;
 
   beforeEach(function () {
     travelCard = new TravelCard();
@@ -14,9 +18,25 @@ describe("TravelCard", function () {
       zone: 1,
     };
 
-    stationTwo = {
+    stationOne = {
       name: "Hampstead",
       zone: 1,
+    };
+    stationTwo = {
+      name: "Leyton",
+      zone: 2,
+    };
+    stationThree = {
+      name: "Walthamstow Station",
+      zone: 3,
+    };
+    stationFour = {
+      name: "Aldgate Eastt",
+      zone: 4,
+    };
+    stationFive = {
+      name: "Oxford Circus",
+      zone: 5,
     };
   });
 
@@ -63,30 +83,38 @@ describe("TravelCard", function () {
 
     it("charges penalty fare if touch in when isInJourney is true", function () {
       travelCard.touchIn(station);
-      travelCard.touchIn(stationTwo);
-      expect(travelCard.balance).toEqual(15);
+      travelCard.touchIn(stationOne);
+      expect(travelCard.balance).toEqual(13);
     });
   });
 
   describe("touchOut", function () {
     it("changes inJourney to false", function () {
       travelCard.touchIn(station);
-      travelCard.touchOut(stationTwo);
+      travelCard.touchOut(stationOne);
       expect(travelCard.isInJourney).toBe(false);
     });
 
     it("provides a message displaying the fare deduction and the new balance", function () {
       travelCard.touchIn(station);
-      expect(travelCard.touchOut(stationTwo)).toBe(
+      expect(travelCard.touchOut(stationOne)).toBe(
         "Journey Ended at Hampstead, £3 Fare Deducted, Balance = £17"
       );
     });
 
     it("charges penalty fare if touch out when isInJourney is false", function () {
       travelCard.touchIn(station);
-      travelCard.touchOut(stationTwo);
-      travelCard.touchOut(stationTwo);
-      expect(travelCard.balance).toEqual(12);
+      travelCard.touchOut(stationOne);
+      travelCard.touchOut(stationOne);
+      expect(travelCard.balance).toEqual(10);
+    });
+  });
+
+  describe("calculate fare", function () {
+    it("charges £3 for a journey in the same zones", function () {
+      travelCard.touchIn(station);
+      travelCard.touchOut(stationOne);
+      expect(travelCard.balance).toEqual(17);
     });
   });
 });
