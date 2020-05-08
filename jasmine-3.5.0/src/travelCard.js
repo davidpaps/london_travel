@@ -56,7 +56,11 @@ class TravelCard {
     let fare =
       this.journey.currentJourney.startStation.zone -
       this.journey.currentJourney.endStation.zone;
-    return this.minFare + Math.abs(fare);
+    if (this.minFare + Math.abs(fare) < this.penalty) {
+      return this.minFare + Math.abs(fare);
+    } else {
+      return this.penalty;
+    }
   };
 
   _notExceedMaxBalance = (money) => {

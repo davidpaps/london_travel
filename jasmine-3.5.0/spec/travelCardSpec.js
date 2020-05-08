@@ -8,6 +8,7 @@ describe("TravelCard", function () {
   let stationThree;
   let stationFour;
   let stationFive;
+  let stationSix;
 
   beforeEach(function () {
     travelCard = new TravelCard();
@@ -22,21 +23,30 @@ describe("TravelCard", function () {
       name: "Hampstead",
       zone: 1,
     };
+
     stationTwo = {
       name: "Leyton",
       zone: 2,
     };
+
     stationThree = {
       name: "Walthamstow Station",
       zone: 3,
     };
+
     stationFour = {
       name: "Aldgate Eastt",
       zone: 4,
     };
+
     stationFive = {
       name: "Oxford Circus",
       zone: 5,
+    };
+
+    stationSix = {
+      name: "Watford",
+      zone: 6,
     };
   });
 
@@ -135,9 +145,15 @@ describe("TravelCard", function () {
       expect(travelCard.balance).toEqual(14);
     });
 
-    it("charges £7 for a journey accross 4+ zones", function () {
+    it("charges £7 for a journey accross 4 zones", function () {
       travelCard.touchIn(stationOne);
       travelCard.touchOut(stationFive);
+      expect(travelCard.balance).toEqual(13);
+    });
+
+    it("charges a max of £7 for a journey accross 4+ zones", function () {
+      travelCard.touchIn(stationOne);
+      travelCard.touchOut(stationSix);
       expect(travelCard.balance).toEqual(13);
     });
   });
