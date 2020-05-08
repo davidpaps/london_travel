@@ -70,7 +70,6 @@ Right click, and open the chrome Developer Tools by selecting `Inspect`. Clcik t
 let travelCard = new TravelCard()
 station = new Station("Woodford", 1);
 stationTwo = new Station("Hampstead", 3);
-stationThree = new Station("Warren Street", 5);
 ```
 
 This will instantiate the objects needed for the program. You can then type in the following to action the objects accordingly:
@@ -80,10 +79,10 @@ travelCard.topUp(20)
 travelCard.touchIn(station)
 travelCard.touchOut(stationThree)
 travelCard.balance
-travelCard.journey
+travelCard.journey.history
 ```
 
-You can then explore the saved journey history, spending, and see if a journey is incomplete or not. Useful messages will be displayed when a user 'touches in' and 'touching out', giving station and charge information. Errors will also be thrown if credit is added above the max cap or when insufficent funds are on the card when starting a journey. Charges are calculated between the zones of the station, with a max charge of £7. If a journey is not completed, the max charge will be used.
+You can then explore the saved journey history, spending, and see if a journey is incomplete or not. Useful messages will be displayed when a user 'tops up', touches in' and 'touching out', giving station and charge information. Errors will also be thrown if credit is added above the max cap or when insufficent funds are on the card when starting a journey. Charges are calculated between the zones of the station, with a max charge of £7. If a journey is not completed, the max charge will be used.
 
 ## Testing
 
