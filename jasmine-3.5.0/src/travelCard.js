@@ -49,7 +49,7 @@ class TravelCard {
       : (charge = this._calculateFare());
     this._deductFare(charge);
     this._complete();
-    return `Journey Ended at ${station.name}, £${charge} Fare Deducted, Balance = £${this.balance}`;
+    return `Journey Ended at ${station.name} (Zone ${station.zone}), £${charge} Fare Deducted, Balance = £${this.balance}`;
   };
 
   _calculateFare = () => {

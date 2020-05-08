@@ -108,7 +108,7 @@ describe("TravelCard", function () {
     it("provides a message displaying the fare deduction and the new balance", function () {
       travelCard.touchIn(station);
       expect(travelCard.touchOut(stationOne)).toBe(
-        "Journey Ended at Hampstead, £3 Fare Deducted, Balance = £17"
+        "Journey Ended at Hampstead (Zone 1), £3 Fare Deducted, Balance = £17"
       );
     });
 
